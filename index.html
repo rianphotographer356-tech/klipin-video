@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klipin Video - AI Auto Video Clipper (100% Gratis Seumur Hidup)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#05060f',
+                        cardBg: 'rgba(13, 16, 38, 0.85)',
+                        neonPurple: '#8b5cf6',
+                        neonCyan: '#06b6d4',
+                        neonEmerald: '#10b981',
+                        neonPink: '#ec4899',
+                        neonAmber: '#f59e0b'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glow-purple': '0 0 30px -5px rgba(139, 92, 246, 0.5)',
+                        'glow-cyan': '0 0 30px -5px rgba(6, 182, 212, 0.5)',
+                        'glow-emerald': '0 0 30px -5px rgba(16, 185, 129, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #05060f;
+            color: #f1f5f9;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-panel {
+            background: rgba(13, 16, 38, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+        }
+
+        .glass-card {
+            background: rgba(20, 25, 55, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(6, 182, 212, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px -5px rgba(6, 182, 212, 0.2);
+        }
+
+        .glass-card-active {
+            border-color: rgba(139, 92, 246, 0.8) !important;
+            background: rgba(46, 26, 95, 0.4) !important;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3) !important;
+        }
+
+        /* Active Speaker Tracker Pulse */
+        @keyframes trackerPulse {
+            0%, 100% { border-color: rgba(6, 182, 212, 0.9); box-shadow: 0 0 15px rgba(6, 182, 212, 0.6); }
+            50% { border-color: rgba(139, 92, 246, 0.9); box-shadow: 0 0 25px rgba(139, 92, 246, 0.8); }
+        }
+        .speaker-box {
+            animation: trackerPulse 2.5s infinite ease-in-out;
+        }
+
+        /* Custom Subtitle Animations */
+        @keyframes popWord {
+            0% { transform: scale(0.85); opacity: 0.5; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+        .word-highlight {
+            display: inline-block;
+            animation: popWord 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        /* Tooltip style */
+        .tooltip-box {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+        }
+        .has-tooltip:hover .tooltip-box {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(8, 10, 24, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(139, 92, 246, 0.5);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(6, 182, 212, 0.8);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black">
+
+    <!-- TOP ANNOUNCEMENT BANNER: 100% FREE NO MONTHLY FEES -->
+    <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-slate-950 font-black text-xs sm:text-sm py-2 px-4 text-center flex items-center justify-center gap-2 shadow-lg">
+        <span class="bg-slate-950 text-emerald-400 text-[10px] sm:text-xs px-2.5 py-0.5 rounded-full uppercase tracking-wider font-extrabold flex items-center gap-1">
+            <i class="fa-solid fa-gift"></i> 100% GRATIS SEUMUR HIDUP
+        </span>
+        <span class="hidden sm:inline">🎉 Tanpa Biaya Langganan Bulanan • Gratis Revisi & Update Selamanya!</span>
+        <span class="sm:hidden">⚡ Tanpa Langganan Bulanan!</span>
+        <button onclick="showToast('Aplikasi Klipin Video sepenuhnya gratis tanpa kartu kredit!')" class="ml-2 underline hover:text-white transition-all text-xs">
+            Pelajari Lisensi &rarr;
+        </button>
+    </div>
+
+    <!-- MAIN HEADER / NAVBAR -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-purple-900/40 px-4 sm:px-8 py-3.5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            
+            <!-- Logo & Brand Info -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 via-cyan-400 to-emerald-400 p-[2px] shadow-glow-purple">
+                    <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid fa-scissors text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 text-lg"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-cyan-300 bg-clip-text text-transparent">
+                            Klipin<span class="text-cyan-400">Video</span>
+                        </span>
+                        <span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-1">
+                            <i class="fa-solid fa-infinity"></i> LIFETIME FREE
+                        </span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 hidden sm:block">AI Auto Clipper • HP & Laptop Friendly Edition</p>
+                </div>
+            </div>
+
+            <!-- Device Mode Switcher (HP Mode vs Laptop Mode) -->
+            <div class="flex items-center gap-2 bg-slate-950 p-1 rounded-xl border border-slate-800">
+                <button id="btn-mode-laptop" onclick="switchDeviceMode('laptop')" class="px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md">
+                    <i class="fa-solid fa-laptop"></i>
+                    <span>Tampilan Laptop</span>
+                </button>
+                <button id="btn-mode-hp" onclick="switchDeviceMode('hp')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-1.5 transition-all">
+                    <i class="fa-solid fa-mobile-screen-button text-cyan-400"></i>
+                    <span>Simulasi HP</span>
+                </button>
+            </div>
+
+            <!-- Header Quick Help & Status Badge -->
+            <div class="hidden lg:flex items-center gap-3">
+                <div class="flex items-center gap-1.5 bg-purple-950/60 border border-purple-500/30 px-3 py-1.5 rounded-xl text-xs text-purple-200">
+                    <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+                    <span>Revisi & Updates: <b>Gratis 100%</b></span>
+                </div>
+                <button onclick="openHelpGuideModal()" class="w-8 h-8 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-400 flex items-center justify-center transition-all">
+                    <i class="fa-solid fa-circle-question"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- GUIDED 3-STEP WIZARD PROGRESS BAR -->
+    <div class="bg-slate-950/90 border-b border-slate-800/80 px-4 py-3">
+        <div class="max-w-4xl mx-auto flex items-center justify-between text-xs font-bold">
+            
+            <!-- Step 1 -->
+            <button onclick="goToWizardStep(1)" id="step-nav-1" class="flex-1 flex items-center justify-center gap-2 py-1.5 px-3 rounded-xl bg-purple-600 text-white shadow-glow-purple transition-all">
+                <span class="w-5 h-5 rounded-full bg-white text-purple-950 flex items-center justify-center text-[11px] font-black">1</span>
+                <span>Impor & Preset 1-Klik</span>
+            </button>
+            <i class="fa-solid fa-chevron-right text-slate-600 mx-2 text-xs"></i>
+
+            <!-- Step 2 -->
+            <button onclick="goToWizardStep(2)" id="step-nav-2" class="flex-1 flex items-center justify-center gap-2 py-1.5 px-3 rounded-xl bg-slate-900 text-slate-400 hover:text-slate-200 transition-all border border-slate-800">
+                <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center text-[11px] font-black">2</span>
+                <span>Edit Studio & AI Processing</span>
+            </button>
+            <i class="fa-solid fa-chevron-right text-slate-600 mx-2 text-xs"></i>
+
+            <!-- Step 3 -->
+            <button onclick="goToWizardStep(3)" id="step-nav-3" class="flex-1 flex items-center justify-center gap-2 py-1.5 px-3 rounded-xl bg-slate-900 text-slate-400 hover:text-slate-200 transition-all border border-slate-800">
+                <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center text-[11px] font-black">3</span>
+                <span>Ekspor & Jadwalkan</span>
+            </button>
+
+        </div>
+    </div>
+
+    <!-- PRESET 1-KLIK BAR (USER-FRIENDLY QUICK MODES) -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 mt-5 w-full">
+        <div class="glass-panel rounded-2xl p-3.5 border border-purple-900/40 flex flex-col md:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-2 text-xs font-bold text-slate-200">
+                <i class="fa-solid fa-wand-magic-sparkles text-amber-400 text-base animate-pulse"></i>
+                <span>Mode Cepat 1-Klik (Preset Pemula):</span>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full md:w-auto">
+                <button onclick="applyOneClickPreset('tiktok')" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-purple-900/40 border border-slate-800 hover:border-purple-500 text-xs text-slate-200 font-bold flex items-center justify-center gap-2 transition-all">
+                    <i class="fa-brands fa-tiktok text-pink-400"></i> TikTok Viral
+                </button>
+                <button onclick="applyOneClickPreset('reels')" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-purple-900/40 border border-slate-800 hover:border-purple-500 text-xs text-slate-200 font-bold flex items-center justify-center gap-2 transition-all">
+                    <i class="fa-brands fa-instagram text-purple-400"></i> Reels Aesthetic
+                </button>
+                <button onclick="applyOneClickPreset('shorts')" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-purple-900/40 border border-slate-800 hover:border-purple-500 text-xs text-slate-200 font-bold flex items-center justify-center gap-2 transition-all">
+                    <i class="fa-brands fa-youtube text-red-500"></i> Shorts Fast-Paced
+                </button>
+                <button onclick="applyOneClickPreset('podcast')" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-purple-900/40 border border-slate-800 hover:border-purple-500 text-xs text-slate-200 font-bold flex items-center justify-center gap-2 transition-all">
+                    <i class="fa-solid fa-microphone text-cyan-400"></i> Podcast Highlights
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN WORKSPACE CONTAINER -->
+    <main id="app-viewport" class="max-w-7xl mx-auto px-4 sm:px-8 py-6 w-full flex-grow transition-all duration-300">
+
+        <!-- WORKSPACE GRID (LAPTOP VS HP LAYOUT ADJUSTMENT) -->
+        <div id="workspace-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- LEFT COLUMN: IMPORT & FEATURE CONTROL TABS (5 CORES) -->
+            <section class="lg:col-span-5 flex flex-col gap-5">
+
+                <!-- 1. VIDEO SOURCE INPUT PANEL -->
+                <div class="glass-panel rounded-2xl p-5 border border-purple-900/40 relative">
+                    <div class="flex items-center justify-between mb-3">
+                        <h2 class="text-sm font-bold text-white flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs">1</span>
+                            Input Video Utama
+                        </h2>
+                        <span class="text-[10px] bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-800/80 font-bold">
+                            HD / 4K Ready
+                        </span>
+                    </div>
+
+                    <!-- Input Toggle (Link vs File) -->
+                    <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 mb-3">
+                        <button id="input-tab-link" onclick="toggleInputSource('link')" class="flex-1 py-1.5 text-xs font-bold rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white transition-all shadow-sm">
+                            <i class="fa-solid fa-link mr-1"></i> Paste Link URL
+                        </button>
+                        <button id="input-tab-file" onclick="toggleInputSource('file')" class="flex-1 py-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-all">
+                            <i class="fa-solid fa-upload mr-1"></i> Upload File HP/PC
+                        </button>
+                    </div>
+
+                    <!-- Input Mode A: URL -->
+                    <div id="input-container-link" class="space-y-2">
+                        <div class="relative">
+                            <input type="text" id="video-url-input" value="https://www.youtube.com/watch?v=dQw4w9WgXcQ" placeholder="Paste link YouTube, TikTok, Instagram Reels, Drive..." class="w-full bg-slate-950 border border-purple-900/60 rounded-xl py-2.5 pl-3 pr-20 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-all">
+                            <button onclick="pasteClipboardLink()" class="absolute right-1.5 top-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] font-bold px-2.5 py-1 rounded-lg border border-slate-700 transition-all">
+                                <i class="fa-regular fa-paste"></i> Tempel
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Input Mode B: File Drag Drop -->
+                    <div id="input-container-file" class="hidden">
+                        <div onclick="triggerFileUpload()" class="border-2 border-dashed border-cyan-500/40 hover:border-cyan-400 rounded-xl p-4 text-center cursor-pointer bg-slate-950/60 transition-all">
+                            <i class="fa-solid fa-cloud-arrow-up text-2xl text-cyan-400 mb-1"></i>
+                            <div class="text-xs font-bold text-white">Klik untuk memilih file dari Galeri HP / Komputer</div>
+                            <div class="text-[10px] text-slate-400 mt-0.5">MP4, MOV, AVI, MKV (Tanpa Batas Ukuran)</div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button onclick="processAIVideo()" class="w-full mt-4 bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white font-extrabold py-3 px-4 rounded-xl text-xs sm:text-sm shadow-glow-purple flex items-center justify-center gap-2 transition-all transform active:scale-95">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>PROSES AI OTOMATIS SEKARANG</span>
+                    </button>
+                </div>
+
+                <!-- 2. AI CORE FEATURES TAB EDITOR (5 MODUL FITUR) -->
+                <div class="glass-panel rounded-2xl p-5 border border-purple-900/40">
+                    
+                    <!-- Tabs Header -->
+                    <div class="flex border-b border-slate-800 gap-1 overflow-x-auto pb-2.5 mb-4 scrollbar-none">
+                        <button onclick="selectFeatureTab('deteksi')" id="ftab-deteksi" class="ftab-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-purple-600 text-white whitespace-nowrap">
+                            1. Deteksi
+                        </button>
+                        <button onclick="selectFeatureTab('framing')" id="ftab-framing" class="ftab-btn px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white whitespace-nowrap">
+                            2. Framing 9:16
+                        </button>
+                        <button onclick="selectFeatureTab('subtitle')" id="ftab-subtitle" class="ftab-btn px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white whitespace-nowrap">
+                            3. Subtitle Dinamis
+                        </button>
+                        <button onclick="selectFeatureTab('audio')" id="ftab-audio" class="ftab-btn px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white whitespace-nowrap">
+                            4. Audio & Efek
+                        </button>
+                        <button onclick="selectFeatureTab('ekspor')" id="ftab-ekspor" class="ftab-btn px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white whitespace-nowrap">
+                            5. Ekspor
+                        </button>
+                    </div>
+
+                    <!-- PANEL 1: DETEKSI & PEMOTONGAN OTOMATIS -->
+                    <div id="fpanel-deteksi" class="fpanel space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xs font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-scissors text-purple-400"></i>
+                                Deteksi Highlight & Silence Remover
+                            </h3>
+                            <div class="has-tooltip relative cursor-pointer">
+                                <i class="fa-solid fa-circle-question text-slate-400 text-xs hover:text-cyan-400"></i>
+                                <div class="tooltip-box absolute right-0 bottom-6 w-48 bg-slate-900 border border-slate-700 p-2 rounded-lg text-[10px] text-slate-300 shadow-xl z-20">
+                                    AI memindai momen viral (tawa, teriakan, argumen) & membuang bagian diam.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Silence & Filler Word Remover -->
+                        <div class="glass-card p-3 rounded-xl border border-slate-800 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-200">Hapus Jeda Diam & Filler Words</span>
+                                <input type="checkbox" id="chk-silence" checked class="accent-purple-500 w-4 h-4 rounded cursor-pointer">
+                            </div>
+                            <p class="text-[11px] text-slate-400">Otomatis menghapus kata seperti "uhm...", "anu...", "eh..." dan jeda mati >0.4 detik.</p>
+                        </div>
+
+                        <!-- Sensitivity Slider -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-slate-300">Sensitivitas Highlight AI</span>
+                                <span class="text-cyan-400 font-mono" id="sensitivity-val">Agresif (85%)</span>
+                            </div>
+                            <input type="range" min="50" max="100" value="85" oninput="document.getElementById('sensitivity-val').innerText = this.value + '%'" class="w-full accent-cyan-400 bg-slate-900 h-1.5 rounded-lg">
+                        </div>
+                    </div>
+
+                    <!-- PANEL 2: PENYESUAIAN VISUAL & FRAMING -->
+                    <div id="fpanel-framing" class="fpanel hidden space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xs font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-crop-simple text-cyan-400"></i>
+                                Smart Reframe & Active Speaker
+                            </h3>
+                        </div>
+
+                        <!-- Active Speaker Tracking Toggle -->
+                        <div class="glass-card p-3 rounded-xl border border-slate-800 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-white">Active Speaker Tracking</span>
+                                <input type="checkbox" id="chk-speaker" checked onchange="toggleSpeakerTrackingOverlay()" class="accent-cyan-400 w-4 h-4 rounded cursor-pointer">
+                            </div>
+                            <p class="text-[11px] text-slate-400">Menjaga wajah pembicara tetap persis di tengah layar video vertikal (9:16).</p>
+                        </div>
+
+                        <!-- AI B-Roll Generator Toggle -->
+                        <div class="glass-card p-3 rounded-xl border border-slate-800 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-white">AI B-Roll Overlay Otomatis</span>
+                                <input type="checkbox" checked class="accent-purple-500 w-4 h-4 rounded cursor-pointer">
+                            </div>
+                            <p class="text-[11px] text-slate-400">Menambahkan video stok pendukung secara otomatis saat menjelaskan konsep.</p>
+                        </div>
+                    </div>
+
+                    <!-- PANEL 3: TEKS & SUBTITLE DINAMIS -->
+                    <div id="fpanel-subtitle" class="fpanel hidden space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xs font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-closed-captioning text-amber-400"></i>
+                                Transkrip Otomatis & Gaya Subtitle
+                            </h3>
+                        </div>
+
+                        <!-- Subtitle Language -->
+                        <div>
+                            <label class="text-xs font-bold text-slate-300 block mb-1">Bahasa Transkrip Video</label>
+                            <select class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-purple-500 font-semibold">
+                                <option value="id">🇮🇩 Bahasa Indonesia (Deteksi Cerdas)</option>
+                                <option value="en">🇺🇸 English (US/UK)</option>
+                                <option value="ja">🇯🇵 Japanese (日本語)</option>
+                                <option value="kr">🇰🇷 Korean (한국어)</option>
+                                <option value="ar">🇸🇦 Arabic (العربية)</option>
+                            </select>
+                        </div>
+
+                        <!-- Preset Subtitle Visual Style Selector -->
+                        <div>
+                            <label class="text-xs font-bold text-slate-300 block mb-1.5">Preset Gaya Subtitle Creator Viral</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="setSubtitleStyle('hormozi')" class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/50 text-amber-300 text-xs font-black text-left hover:bg-amber-500/20 transition-all">
+                                    🟡 Alex Hormozi Style
+                                    <div class="text-[9px] font-normal text-slate-400">Teks kuning bold + kata kunci pop</div>
+                                </button>
+                                <button onclick="setSubtitleStyle('neon')" class="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/50 text-purple-300 text-xs font-black text-left hover:bg-purple-500/20 transition-all">
+                                    💜 Neon Cyber Glow
+                                    <div class="text-[9px] font-normal text-slate-400">Pendaran ungu neon futuristik</div>
+                                </button>
+                                <button onclick="setSubtitleStyle('karaoke')" class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/50 text-emerald-300 text-xs font-black text-left hover:bg-emerald-500/20 transition-all">
+                                    💚 Karaoke Pop Highlight
+                                    <div class="text-[9px] font-normal text-slate-400">Kata per kata menyala hijau</div>
+                                </button>
+                                <button onclick="setSubtitleStyle('clean')" class="p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-xs font-bold text-left hover:bg-slate-800 transition-all">
+                                    ⚪ Clean Minimalist
+                                    <div class="text-[9px] font-normal text-slate-400">Putih bersih tanpa efek tebal</div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- AI Hook Generator Headline Editor -->
+                        <div class="glass-card p-3 rounded-xl border border-slate-800 space-y-1.5">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-rose-400 flex items-center gap-1">
+                                    <i class="fa-solid fa-fire"></i> AI Hook Generator (3 Detik Pertama)
+                                </span>
+                            </div>
+                            <input type="text" id="ai-hook-input" value="🔥 TRIK RAHASIA YANG BIKIN KAGET!" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs text-white font-bold" oninput="updateLiveHookText(this.value)">
+                        </div>
+                    </div>
+
+                    <!-- PANEL 4: AUDIO & EFEK -->
+                    <div id="fpanel-audio" class="fpanel hidden space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xs font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-wand-magic-sparkles text-emerald-400"></i>
+                                Pembersihan Suara & AI Dubbing
+                            </h3>
+                        </div>
+
+                        <!-- Noise Cleanup -->
+                        <div class="glass-card p-3 rounded-xl border border-slate-800 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-white">Audio Cleanup & Noise Removal</span>
+                                <input type="checkbox" checked class="accent-emerald-400 w-4 h-4 rounded cursor-pointer">
+                            </div>
+                            <p class="text-[11px] text-slate-400">Menghilangkan suara gemuruh angin, dengung kipas, dan menaikkan kejernihan vokal.</p>
+                        </div>
+
+                        <!-- Dynamic Zoom Effect -->
+                        <div class="glass-card p-3 rounded-xl border border-slate-800 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-white">Dynamic Auto Zoom Moment</span>
+                                <input type="checkbox" checked class="accent-purple-500 w-4 h-4 rounded cursor-pointer">
+                            </div>
+                            <p class="text-[11px] text-slate-400">Zoom otomatis pada kata-kata emosional untuk meningkatkan watch time.</p>
+                        </div>
+                    </div>
+
+                    <!-- PANEL 5: EKSPOR & WATERMARK -->
+                    <div id="fpanel-ekspor" class="fpanel hidden space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xs font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-download text-purple-400"></i>
+                                Watermark & Penjadwalan Sosial Media
+                            </h3>
+                        </div>
+
+                        <!-- 100% Free No Watermark Toggle -->
+                        <div class="glass-card p-3.5 rounded-xl border border-emerald-500/40 bg-emerald-950/20 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-extrabold text-emerald-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-check"></i> Hapus Watermark Klipin
+                                </span>
+                                <span class="text-[10px] bg-emerald-900 text-emerald-200 px-2 py-0.5 rounded font-black">100% GRATIS</span>
+                            </div>
+                            <p class="text-[11px] text-slate-300">Hasil klip kamu 100% bersih tanpa logo aplikasi!</p>
+                        </div>
+
+                        <!-- Custom Logo Upload -->
+                        <div class="glass-card p-3 rounded-xl border border-slate-800 space-y-2">
+                            <div class="text-xs font-bold text-slate-200">Gunakan Logo Brand Pribadi Kamu (Opsional)</div>
+                            <button onclick="showToast('Logo kustom berhasil diunggah')" class="w-full py-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg text-xs text-slate-300 font-semibold flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-image text-purple-400"></i> Pilih File Logo PNG Transparan
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- CENTER/RIGHT COLUMN: INTERACTIVE 9:16 PREVIEW SIMULATOR & CLIPS MANAGER -->
+            <section id="preview-section" class="lg:col-span-7 flex flex-col lg:flex-row gap-6 items-center lg:items-start justify-center">
+
+                <!-- 9:16 MOBILE SCREEN SIMULATOR FRAME -->
+                <div class="w-full max-w-[310px] aspect-[9/16] bg-slate-950 rounded-[36px] border-[6px] border-slate-800 p-3 relative flex flex-col justify-between shadow-2xl overflow-hidden select-none ring-1 ring-purple-500/20">
+                    
+                    <!-- Top Notch / Speaker Bar -->
+                    <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-24 h-4 bg-slate-900 rounded-full z-30 flex items-center justify-center">
+                        <div class="w-3 h-3 rounded-full bg-slate-950 mr-2"></div>
+                        <div class="w-8 h-1 rounded-full bg-slate-800"></div>
+                    </div>
+
+                    <!-- Simulated Video Background Canvas -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-950 via-slate-900 to-cyan-950 opacity-90"></div>
+                    
+                    <!-- Mock Speaker & Motion Graphics -->
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
+                        <div class="w-36 h-36 rounded-full bg-cyan-500/10 blur-2xl animate-pulse"></div>
+                        <!-- Speaker Graphic -->
+                        <div class="relative flex flex-col items-center">
+                            <div class="w-28 h-28 rounded-full border-2 border-cyan-400/40 bg-slate-900 flex items-center justify-center overflow-hidden mb-2 shadow-2xl">
+                                <i class="fa-solid fa-user-astronaut text-5xl text-cyan-300 animate-bounce"></i>
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-300 bg-slate-950/90 px-2.5 py-0.5 rounded-full border border-slate-800">
+                                Active Speaker #1
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Active Speaker Bounding Box Tracker Overlay -->
+                    <div id="speaker-tracker-box" class="absolute inset-x-6 top-14 bottom-28 rounded-2xl border-2 border-dashed border-cyan-400 speaker-box pointer-events-none z-10 transition-all">
+                        <div class="absolute top-2 left-2 bg-cyan-500 text-slate-950 font-black text-[9px] px-1.5 py-0.5 rounded shadow flex items-center gap-1">
+                            <i class="fa-solid fa-crosshairs"></i> AI TRACKING
+                        </div>
+                    </div>
+
+                    <!-- OVERLAY 1: AI HOOK BANNER (3 SECONDS) -->
+                    <div id="live-hook-banner" class="relative z-20 mt-6 w-full bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 text-white font-black text-xs sm:text-sm text-center py-2 px-3 rounded-xl shadow-2xl border border-amber-300/50 transform animate-pulse">
+                        🔥 TRIK RAHASIA YANG BIKIN KAGET!
+                    </div>
+
+                    <!-- OVERLAY 2: LIVE DYNAMIC SUBTITLE DISPLAY -->
+                    <div class="relative z-20 my-auto text-center px-2">
+                        <div id="live-subtitle-container" class="inline-block bg-slate-950/85 backdrop-blur-md px-3.5 py-2 rounded-xl border border-amber-400/50 shadow-2xl">
+                            <span class="text-xs sm:text-sm font-black uppercase tracking-wide" id="live-subtitle-text">
+                                <span class="text-white">KALAU MAU</span> 
+                                <span class="text-amber-300 word-highlight bg-amber-950/90 px-1 rounded">KONTEN VIRAL</span> 
+                                <span class="text-white">GUNAKAN AI!</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- OVERLAY 3: PLAYER CONTROLS & TIMELINE -->
+                    <div class="relative z-20 w-full space-y-2 bg-slate-950/90 backdrop-blur-md p-2.5 rounded-2xl border border-slate-800">
+                        <!-- Progress Bar -->
+                        <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden cursor-pointer" onclick="seekSimulatedVideo(event)">
+                            <div id="simulated-progress" class="bg-gradient-to-r from-cyan-400 to-purple-500 h-full w-1/3 transition-all duration-200"></div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between text-xs">
+                            <button onclick="toggleVideoPlayback()" id="btn-play" class="w-7 h-7 rounded-full bg-purple-600 hover:bg-purple-500 text-white flex items-center justify-center transition-all">
+                                <i class="fa-solid fa-pause text-xs" id="icon-play"></i>
+                            </button>
+                            
+                            <span class="font-mono text-[11px] text-slate-300" id="live-video-timer">00:14 / 00:45</span>
+
+                            <div class="flex items-center gap-2">
+                                <button onclick="toggleSpeakerTrackingOverlay()" title="Toggle Visual Tracking Box" class="text-cyan-400 hover:text-cyan-300 text-xs">
+                                    <i class="fa-solid fa-crosshairs"></i>
+                                </button>
+                                <button onclick="showToast('Video 9:16 Siap Ekspor!')" title="HD Mode" class="text-emerald-400 text-xs font-bold">
+                                    HD
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT PANEL: GENERATED CLIPS & BATCH EXPORT MANAGER -->
+                <div class="w-full flex-1 space-y-4">
+                    
+                    <!-- Viral Score Summary Card -->
+                    <div class="glass-card p-4 rounded-2xl border border-purple-500/30 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-rose-600 flex items-center justify-center font-black text-white text-lg shadow-lg">
+                                98
+                            </div>
+                            <div>
+                                <div class="text-xs font-black text-white flex items-center gap-1.5">
+                                    <span>Skor Potensi Viral</span>
+                                    <span class="text-[10px] text-emerald-300 bg-emerald-950 px-2 py-0.5 rounded font-bold border border-emerald-800">Sangat Tinggi 🔥</span>
+                                </div>
+                                <p class="text-[11px] text-slate-400">Tempo cepat, hook emosional kuat, auto 9:16 persis.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Generated Clips Selector -->
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between px-1">
+                            <span class="text-xs font-bold text-slate-200">Hasil Klip Otomatis (4 Klip Siap Pakai)</span>
+                            <span class="text-[10px] text-cyan-400 font-bold">100% Tanpa Watermark</span>
+                        </div>
+
+                        <!-- Clip Item 1 -->
+                        <div onclick="switchActiveClip(1, 'Tips Rahasia Bisnis Viral', '00:45', 98)" id="clip-card-1" class="glass-card glass-card-active p-3 rounded-xl border flex items-center justify-between cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-xl bg-purple-950 border border-purple-500/50 flex items-center justify-center text-purple-300 font-black text-xs">
+                                    #1
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-white">Tips Rahasia Bisnis Viral</div>
+                                    <div class="text-[10px] text-slate-400 font-mono">Durasi: 00:45 • Viral Score: <span class="text-amber-400 font-bold">98/100 🔥</span></div>
+                                </div>
+                            </div>
+                            <span class="text-[11px] font-bold text-cyan-400 bg-cyan-950/80 px-2.5 py-1 rounded-lg border border-cyan-800">
+                                <i class="fa-solid fa-play text-[9px] mr-1"></i> Diputar
+                            </span>
+                        </div>
+
+                        <!-- Clip Item 2 -->
+                        <div onclick="switchActiveClip(2, 'Klimaks Debat Panas AI', '00:32', 91)" id="clip-card-2" class="glass-card p-3 rounded-xl border border-slate-800 flex items-center justify-between cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center text-slate-400 font-black text-xs">
+                                    #2
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-white">Klimaks Debat Panas AI</div>
+                                    <div class="text-[10px] text-slate-400 font-mono">Durasi: 00:32 • Viral Score: <span class="text-amber-400 font-bold">91/100 🔥</span></div>
+                                </div>
+                            </div>
+                            <span class="text-[11px] font-medium text-slate-400 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+                                Pilih Klip
+                            </span>
+                        </div>
+
+                        <!-- Clip Item 3 -->
+                        <div onclick="switchActiveClip(3, 'Reaksi Momen Lucu Podcast', '00:58', 86)" id="clip-card-3" class="glass-card p-3 rounded-xl border border-slate-800 flex items-center justify-between cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="w-9 h-9 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center text-slate-400 font-black text-xs">
+                                    #3
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold text-white">Reaksi Momen Lucu Podcast</div>
+                                    <div class="text-[10px] text-slate-400 font-mono">Durasi: 00:58 • Viral Score: <span class="text-amber-400 font-bold">86/100 🔥</span></div>
+                                </div>
+                            </div>
+                            <span class="text-[11px] font-medium text-slate-400 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+                                Pilih Klip
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Batch Export & Scheduler Actions -->
+                    <div class="pt-2 space-y-2.5">
+                        <button onclick="triggerBatchExportModal()" class="w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-400 hover:from-emerald-400 hover:to-cyan-300 text-slate-950 font-black py-3 px-4 rounded-xl text-xs sm:text-sm shadow-glow-emerald flex items-center justify-center gap-2 transition-all transform active:scale-95">
+                            <i class="fa-solid fa-file-arrow-down text-base"></i>
+                            <span>EKSPOR SEMUA KLIP SEKALIGUS (1080p FULL HD)</span>
+                        </button>
+                        
+                        <button onclick="openScheduleModal()" class="w-full bg-slate-900 hover:bg-slate-800 text-purple-300 border border-purple-500/40 font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition-all">
+                            <i class="fa-solid fa-calendar-days text-cyan-400"></i>
+                            <span>Jadwalkan Posting ke TikTok / Reels / Shorts</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER PROMO & LIFETIME FREE PROMISE (MATCHING BRAND BANNER) -->
+    <footer class="mt-10 border-t border-purple-900/40 bg-slate-950 py-8 px-4 sm:px-8">
+        <div class="max-w-7xl mx-auto space-y-6">
+            
+            <div class="relative rounded-3xl p-6 sm:p-8 overflow-hidden border border-emerald-500/40 bg-gradient-to-r from-emerald-950/60 via-purple-950/70 to-slate-950 shadow-glow-emerald">
+                
+                <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6">
+                    <div class="space-y-2 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 bg-emerald-500/20 px-3 py-1 rounded-full border border-emerald-500/40 text-emerald-300 text-xs font-extrabold">
+                            <i class="fa-solid fa-check-circle"></i> APLIKASI 100% GRATIS SEUMUR HIDUP
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+                            Bebas Biaya Langganan Bulanan — <span class="text-cyan-400">Gratis Revisi & Update Selamanya!</span>
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-300 max-w-xl">
+                            Gunakan tanpa batas di <span class="text-white font-bold">HP Android/iOS</span>, <span class="text-white font-bold">Laptop</span>, dan <span class="text-white font-bold">Komputer PC</span> kapan saja.
+                        </p>
+                    </div>
+
+                    <!-- Platform Badges -->
+                    <div class="flex items-center gap-3 bg-slate-900/90 p-3 rounded-2xl border border-slate-800">
+                        <div class="text-center px-2">
+                            <i class="fa-brands fa-windows text-blue-400 text-xl block mb-1"></i>
+                            <span class="text-[10px] text-slate-300 font-bold">Windows</span>
+                        </div>
+                        <div class="text-center px-2 border-l border-slate-800">
+                            <i class="fa-brands fa-apple text-slate-200 text-xl block mb-1"></i>
+                            <span class="text-[10px] text-slate-300 font-bold">macOS</span>
+                        </div>
+                        <div class="text-center px-2 border-l border-slate-800">
+                            <i class="fa-brands fa-android text-emerald-400 text-xl block mb-1"></i>
+                            <span class="text-[10px] text-slate-300 font-bold">Android</span>
+                        </div>
+                        <div class="text-center px-2 border-l border-slate-800">
+                            <i class="fa-solid fa-mobile-screen text-indigo-400 text-xl block mb-1"></i>
+                            <span class="text-[10px] text-slate-300 font-bold">iOS HP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 text-center">
+                    <button onclick="showToast('Klipin Video 100% Siap Digunakan!')" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-400 via-cyan-400 to-purple-500 hover:opacity-90 text-slate-950 font-black px-8 py-3 rounded-full text-xs sm:text-sm shadow-glow-cyan transition-all transform hover:scale-105">
+                        <i class="fa-solid fa-rocket"></i>
+                        <span>MULAI KLIPING VIDEO VIRAL KAMU SEKARANG</span>
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="text-center text-xs text-slate-500">
+                &copy; 2026 <span class="text-slate-300 font-bold">Klipin Video</span> AI Clipper. Multi-Platform Support (HP & Laptop) • Lifetime Free Edition.
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- MODALS & TOAST OVERLAYS -->
+    
+    <!-- Toast Popup Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-950 text-white px-4 py-3 rounded-xl border border-cyan-500/50 shadow-2xl flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-message" class="text-xs font-bold">Notifikasi sistem</span>
+    </div>
+
+    <!-- Processing Modal -->
+    <div id="ai-process-modal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="glass-panel max-w-md w-full rounded-2xl p-6 border border-purple-500/50 text-center space-y-4">
+            <div class="w-16 h-16 rounded-full bg-purple-900/40 border border-purple-500/50 flex items-center justify-center mx-auto text-purple-400 text-2xl animate-spin">
+                <i class="fa-solid fa-gear"></i>
+            </div>
+            <div>
+                <h3 class="text-base font-extrabold text-white">AI Sedang Memproses Video...</h3>
+                <p class="text-xs text-slate-400 mt-1">Mendeteksi momen puncak, membuang jeda mati, & menyusun subtitle.</p>
+            </div>
+            
+            <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-slate-800">
+                <div id="ai-process-bar" class="bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-400 h-full w-0 transition-all duration-300"></div>
+            </div>
+            <div class="text-[11px] font-mono text-cyan-300 flex justify-between font-bold">
+                <span id="ai-status-text">Memindai Transkrip...</span>
+                <span id="ai-percent">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scheduling Modal -->
+    <div id="schedule-modal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="glass-panel max-w-md w-full rounded-2xl p-6 border border-purple-500/50 space-y-4">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-calendar-plus text-cyan-400"></i> Jadwalkan Post Massal
+                </h3>
+                <button onclick="closeScheduleModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="text-slate-300 block mb-1">Pilih Platform Sosial Media</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <label class="p-2 bg-slate-900 rounded-lg border border-slate-800 flex items-center gap-1.5 cursor-pointer text-slate-200">
+                            <input type="checkbox" checked class="accent-pink-500"> TikTok
+                        </label>
+                        <label class="p-2 bg-slate-900 rounded-lg border border-slate-800 flex items-center gap-1.5 cursor-pointer text-slate-200">
+                            <input type="checkbox" checked class="accent-purple-500"> Reels
+                        </label>
+                        <label class="p-2 bg-slate-900 rounded-lg border border-slate-800 flex items-center gap-1.5 cursor-pointer text-slate-200">
+                            <input type="checkbox" checked class="accent-red-500"> Shorts
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-slate-300 block mb-1">Tanggal & Waktu Publikasi Otomatis</label>
+                    <input type="datetime-local" value="2026-10-28T19:00" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white font-mono">
+                </div>
+            </div>
+
+            <button onclick="confirmScheduling()" class="w-full bg-gradient-to-r from-cyan-500 to-purple-600 font-extrabold py-2.5 rounded-xl text-xs text-white">
+                Simpan & Jadwalkan Sekarang
+            </button>
+        </div>
+    </div>
+
+    <!-- HELP GUIDE MODAL -->
+    <div id="help-modal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="glass-panel max-w-lg w-full rounded-2xl p-6 border border-cyan-500/50 space-y-4 text-xs">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-circle-info text-emerald-400"></i> Panduan Penggunaan & Lisensi Gratis
+                </h3>
+                <button onclick="closeHelpGuideModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="space-y-2 text-slate-300 leading-relaxed">
+                <p><b>1. Apakah Klipin Video benar-benar gratis?</b><br>
+                Ya! 100% Gratis seumur hidup tanpa biaya berlangganan bulanan. Anda bebas melakukan revisi & update kapan saja.</p>
+                
+                <p><b>2. Bagaimana cara menggunakannya di HP / Laptop?</b><br>
+                Gunakan tombol "Tampilan Laptop / Simulasi HP" di pojok kanan atas untuk menyesuaikan kenyamanan tampilan layar Anda.</p>
+
+                <p><b>3. Apa saja fitur AI yang ada?</b><br>
+                Deteksi Momen Highlight, Silence Removal, Smart Auto Crop 9:16, Subtitle Hormozi/Neon, Cleanup Audio, dan Ekspor tanpa Watermark.</p>
+            </div>
+
+            <button onclick="closeHelpGuideModal()" class="w-full bg-slate-800 hover:bg-slate-700 py-2 rounded-xl text-slate-200 font-bold">
+                Tutup Panduan
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // State Management
+        let appState = {
+            deviceMode: 'laptop', // 'laptop' or 'hp'
+            isPlaying: true,
+            currentTime: 14,
+            duration: 45,
+            activeClip: 1,
+            speakerBoxVisible: true,
+            timerInterval: null
+        };
+
+        // Captions Sequence
+        const captionList = [
+            { start: 0, end: 3, text: "Banyak orang bingung gimana cara bikin video viral..." },
+            { start: 4, end: 8, text: "Padahal kunci utamanya ada di 3 detik pertama!" },
+            { start: 9, end: 15, text: "KALAU MAU <span class='text-amber-300 word-highlight bg-amber-950/90 px-1 rounded'>KONTEN VIRAL</span> GUNAKAN AI!" },
+            { start: 16, end: 22, text: "Klipin Video potong highlight terbaik otomatis secepat kilat." },
+            { start: 23, end: 30, text: "Tanpa biaya bulanan & 100% gratis revisi seumur hidup!" },
+            { start: 31, end: 45, text: "Langsung siap upload ke TikTok, Reels & Shorts!" }
+        ];
+
+        window.onload = function() {
+            initPlaybackLoop();
+        };
+
+        // Video Simulation Loop
+        function initPlaybackLoop() {
+            if (appState.timerInterval) clearInterval(appState.timerInterval);
+            appState.timerInterval = setInterval(() => {
+                if (!appState.isPlaying) return;
+
+                appState.currentTime++;
+                if (appState.currentTime > appState.duration) {
+                    appState.currentTime = 0;
+                }
+                updateSimulatorUI();
+            }, 1000);
+        }
+
+        function updateSimulatorUI() {
+            // Update Timer Text
+            const fmt = (s) => `00:${s < 10 ? '0' + s : s}`;
+            document.getElementById('live-video-timer').innerText = `${fmt(appState.currentTime)} / ${fmt(appState.duration)}`;
+
+            // Update Progress Bar
+            const percent = (appState.currentTime / appState.duration) * 100;
+            document.getElementById('simulated-progress').style.width = `${percent}%`;
+
+            // Dynamic Hook Banner visibility
+            const hook = document.getElementById('live-hook-banner');
+            if (appState.currentTime <= 4) {
+                hook.classList.remove('hidden');
+            } else {
+                hook.classList.add('hidden');
+            }
+
+            // Update Subtitle text
+            const currCap = captionList.find(c => appState.currentTime >= c.start && appState.currentTime <= c.end);
+            if (currCap) {
+                document.getElementById('live-subtitle-text').innerHTML = currCap.text;
+            }
+        }
+
+        // Toggle Video Playback
+        function toggleVideoPlayback() {
+            appState.isPlaying = !appState.isPlaying;
+            const icon = document.getElementById('icon-play');
+            if (appState.isPlaying) {
+                icon.className = "fa-solid fa-pause text-xs";
+                showToast("Video diputar");
+            } else {
+                icon.className = "fa-solid fa-play text-xs";
+                showToast("Video dijeda");
+            }
+        }
+
+        // Seek Video Timeline
+        function seekSimulatedVideo(e) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const pct = clickX / rect.width;
+            appState.currentTime = Math.floor(pct * appState.duration);
+            updateSimulatorUI();
+        }
+
+        // Switch Active Device Mode (Laptop View vs HP View)
+        function switchDeviceMode(mode) {
+            appState.deviceMode = mode;
+            const btnLaptop = document.getElementById('btn-mode-laptop');
+            const btnHp = document.getElementById('btn-mode-hp');
+            const grid = document.getElementById('workspace-grid');
+
+            if (mode === 'laptop') {
+                btnLaptop.className = "px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md";
+                btnHp.className = "px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-1.5 transition-all";
+                grid.className = "grid grid-cols-1 lg:grid-cols-12 gap-6";
+                showToast("Mode Layar Laptop / PC Aktif");
+            } else {
+                btnHp.className = "px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all bg-gradient-to-r from-cyan-600 to-teal-600 text-white shadow-md";
+                btnLaptop.className = "px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-1.5 transition-all";
+                grid.className = "max-w-md mx-auto flex flex-col gap-6";
+                showToast("Mode Simulasi HP Mobile Aktif");
+            }
+        }
+
+        // Guided 3-Step Wizard Navigation
+        function goToWizardStep(stepNum) {
+            for (let i = 1; i <= 3; i++) {
+                const nav = document.getElementById(`step-nav-${i}`);
+                if (i === stepNum) {
+                    nav.className = "flex-1 flex items-center justify-center gap-2 py-1.5 px-3 rounded-xl bg-purple-600 text-white shadow-glow-purple transition-all";
+                } else {
+                    nav.className = "flex-1 flex items-center justify-center gap-2 py-1.5 px-3 rounded-xl bg-slate-900 text-slate-400 hover:text-slate-200 transition-all border border-slate-800";
+                }
+            }
+
+            if (stepNum === 1) {
+                selectFeatureTab('deteksi');
+                showToast("Langkah 1: Impor Video & Pilih Preset");
+            } else if (stepNum === 2) {
+                selectFeatureTab('framing');
+                showToast("Langkah 2: Edit Framing 9:16 & AI Processing");
+            } else {
+                selectFeatureTab('ekspor');
+                showToast("Langkah 3: Ekspor & Jadwalkan");
+            }
+        }
+
+        // Apply 1-Click Quick Presets
+        function applyOneClickPreset(preset) {
+            if (preset === 'tiktok') {
+                setSubtitleStyle('hormozi');
+                document.getElementById('ai-hook-input').value = "🔥 JANGAN SWIPE! RAHASIA VIRAL TIKTOK!";
+                updateLiveHookText("🔥 JANGAN SWIPE! RAHASIA VIRAL TIKTOK!");
+                showToast("Preset 'TikTok Viral' Berhasil Diterapkan!");
+            } else if (preset === 'reels') {
+                setSubtitleStyle('neon');
+                document.getElementById('ai-hook-input').value = "✨ AESTHETIC HIGHLIGHT TRICK 2026";
+                updateLiveHookText("✨ AESTHETIC HIGHLIGHT TRICK 2026");
+                showToast("Preset 'Reels Aesthetic' Berhasil Diterapkan!");
+            } else if (preset === 'shorts') {
+                setSubtitleStyle('karaoke');
+                document.getElementById('ai-hook-input').value = "⚡ TRIK CEPAT SHORTS 60 DETIK!";
+                updateLiveHookText("⚡ TRIK CEPAT SHORTS 60 DETIK!");
+                showToast("Preset 'Shorts Fast-Paced' Diterapkan!");
+            } else {
+                setSubtitleStyle('clean');
+                document.getElementById('ai-hook-input').value = "🎙️ HIGHLIGHT PODCAST TERPOPULER";
+                updateLiveHookText("🎙️ HIGHLIGHT PODCAST TERPOPULER");
+                showToast("Preset 'Podcast Auto-Clip' Diterapkan!");
+            }
+        }
+
+        // Feature Tab Switcher
+        function selectFeatureTab(tabKey) {
+            document.querySelectorAll('.ftab-btn').forEach(b => {
+                b.className = "ftab-btn px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white whitespace-nowrap";
+            });
+            document.querySelectorAll('.fpanel').forEach(p => p.classList.add('hidden'));
+
+            document.getElementById(`ftab-${tabKey}`).className = "ftab-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-purple-600 text-white whitespace-nowrap";
+            document.getElementById(`fpanel-${tabKey}`).classList.remove('hidden');
+        }
+
+        // Input Source Toggle (URL vs File)
+        function toggleInputSource(type) {
+            const btnLink = document.getElementById('input-tab-link');
+            const btnFile = document.getElementById('input-tab-file');
+            const boxLink = document.getElementById('input-container-link');
+            const boxFile = document.getElementById('input-container-file');
+
+            if (type === 'link') {
+                btnLink.className = "flex-1 py-1.5 text-xs font-bold rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white transition-all shadow-sm";
+                btnFile.className = "flex-1 py-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-all";
+                boxLink.classList.remove('hidden');
+                boxFile.classList.add('hidden');
+            } else {
+                btnFile.className = "flex-1 py-1.5 text-xs font-bold rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white transition-all shadow-sm";
+                btnLink.className = "flex-1 py-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-all";
+                boxFile.classList.remove('hidden');
+                boxLink.classList.add('hidden');
+            }
+        }
+
+        function pasteClipboardLink() {
+            document.getElementById('video-url-input').value = "https://www.youtube.com/watch?v=rekaman_viral_2026";
+            showToast("Link video berhasil ditempel!");
+        }
+
+        function triggerFileUpload() {
+            showToast("File 'podcast_video_full.mp4' dipilih");
+        }
+
+        // Process AI Video Progress Animation
+        function processAIVideo() {
+            const modal = document.getElementById('ai-process-modal');
+            const bar = document.getElementById('ai-process-bar');
+            const percent = document.getElementById('ai-percent');
+            const status = document.getElementById('ai-status-text');
+
+            modal.classList.remove('hidden');
+            let p = 0;
+
+            const logs = [
+                "Menganalisis Vokal & Transkrip Suara...",
+                "Mendeteksi Momen Emosi & Humor...",
+                "Menghapus Jeda Diam >0.4s...",
+                "Menyelaraskan Smart Auto Crop 9:16...",
+                "Menyusun Subtitle Dinamis 100% Presisi!"
+            ];
+
+            const interval = setInterval(() => {
+                p += 5;
+                bar.style.width = `${p}%`;
+                percent.innerText = `${p}%`;
+
+                if (p < 25) status.innerText = logs[0];
+                else if (p < 50) status.innerText = logs[1];
+                else if (p < 75) status.innerText = logs[2];
+                else if (p < 90) status.innerText = logs[3];
+                else status.innerText = logs[4];
+
+                if (p >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        modal.classList.add('hidden');
+                        showToast("Selesai! 4 Klip Highlight Berhasil Dibuat.");
+                        goToWizardStep(2);
+                    }, 400);
+                }
+            }, 80);
+        }
+
+        // Toggle Speaker Box Frame Overlay
+        function toggleSpeakerTrackingOverlay() {
+            appState.speakerBoxVisible = !appState.speakerBoxVisible;
+            const box = document.getElementById('speaker-tracker-box');
+            if (appState.speakerBoxVisible) {
+                box.classList.remove('hidden');
+                showToast("Active Speaker Tracking Box: AKTIF");
+            } else {
+                box.classList.add('hidden');
+                showToast("Active Speaker Tracking Box: SEMBUNYI");
+            }
+        }
+
+        // Subtitle Style Preset Switcher
+        function setSubtitleStyle(style) {
+            const container = document.getElementById('live-subtitle-container');
+            if (style === 'hormozi') {
+                container.className = "inline-block bg-slate-950/90 backdrop-blur-md px-3.5 py-2 rounded-xl border border-amber-400/60 shadow-2xl";
+            } else if (style === 'neon') {
+                container.className = "inline-block bg-purple-950/90 backdrop-blur-md px-3.5 py-2 rounded-xl border border-purple-400 shadow-glow-purple";
+            } else if (style === 'karaoke') {
+                container.className = "inline-block bg-emerald-950/90 backdrop-blur-md px-3.5 py-2 rounded-xl border border-emerald-400 shadow-glow-emerald";
+            } else {
+                container.className = "inline-block bg-black/80 backdrop-blur-sm px-3.5 py-1.5 rounded-lg border border-slate-700";
+            }
+        }
+
+        // Live Update Hook Text
+        function updateLiveHookText(val) {
+            document.getElementById('live-hook-banner').innerText = val.toUpperCase();
+        }
+
+        // Switch Active Clip Selection
+        function switchActiveClip(id, title, dur, score) {
+            appState.activeClip = id;
+            appState.currentTime = 0;
+            
+            document.querySelectorAll('[id^="clip-card-"]').forEach(c => {
+                c.className = "glass-card p-3 rounded-xl border border-slate-800 flex items-center justify-between cursor-pointer";
+            });
+
+            const activeCard = document.getElementById(`clip-card-${id}`);
+            if (activeCard) {
+                activeCard.className = "glass-card glass-card-active p-3 rounded-xl border flex items-center justify-between cursor-pointer";
+            }
+            showToast(`Memutar Klip #${id} - ${title}`);
+        }
+
+        // Batch Export Modal Trigger
+        function triggerBatchExportModal() {
+            showToast("Mengunduh 4 Klip (1080p FULL HD) Tanpa Watermark...");
+        }
+
+        // Scheduling Modal Controls
+        function openScheduleModal() {
+            document.getElementById('schedule-modal').classList.remove('hidden');
+        }
+        function closeScheduleModal() {
+            document.getElementById('schedule-modal').classList.add('hidden');
+        }
+        function confirmScheduling() {
+            closeScheduleModal();
+            showToast("4 Klip Berhasil Dijadwalkan ke TikTok, Reels & Shorts!");
+        }
+
+        // Help Guide Modal Controls
+        function openHelpGuideModal() {
+            document.getElementById('help-modal').classList.remove('hidden');
+        }
+        function closeHelpGuideModal() {
+            document.getElementById('help-modal').classList.add('hidden');
+        }
+
+        // Toast Helper
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
